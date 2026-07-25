@@ -1,4 +1,516 @@
-<html>
-<head><title>AISW교실 4기</title></head>
-<body>Github pages 출력 테스트1</body>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사이언스 브리프 — 분야별 최신 과학 뉴스 요약</title>
+<meta name="description" content="최신 과학 논문과 뉴스를 분야별로 모아 짧고 쉬운 요약문으로 정리한 모음집">
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --surface:#ffffff;
+    --surface-2:#eef0f6;
+    --text:#1a1d29;
+    --text-dim:#5a5f72;
+    --border:#e2e4ec;
+    --accent:#4d5bce;
+    --shadow: 0 1px 2px rgba(20,22,40,.04), 0 8px 24px rgba(20,22,40,.06);
+    --physics:#4d5bce;
+    --space:#7b4dce;
+    --bio:#1f9d6b;
+    --ai:#c47a1f;
+    --chem:#c2408a;
+    --env:#1596a1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14151c;
+      --surface:#1c1e29;
+      --surface-2:#242634;
+      --text:#eceef5;
+      --text-dim:#a2a6bd;
+      --border:#2e3142;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --physics:#8892e8;
+      --space:#b191ea;
+      --bio:#4fce9d;
+      --ai:#e6a94f;
+      --chem:#e881bb;
+      --env:#5cd2dd;
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  .site-header{
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter: blur(8px);
+  }
+  .header-inner{
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand .logo{
+    font-size:28px;
+    width:48px;height:48px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface-2);
+    border-radius:14px;
+    flex-shrink:0;
+  }
+  .brand h1{font-size:20px;margin:0 0 2px;letter-spacing:-.02em;}
+  .brand .tagline{font-size:13px;color:var(--text-dim);margin:0;}
+  .meta-updated{
+    font-size:12px;
+    color:var(--text-dim);
+    background:var(--surface-2);
+    padding:6px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  .controls{
+    max-width:1100px;
+    margin:22px auto 0;
+    padding:0 24px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .tabs{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .tab{
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .tab:hover{ color:var(--text); border-color:var(--accent); }
+  .tab.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .search-box{ flex-shrink:0; }
+  .search-box input{
+    font-family:inherit;
+    font-size:13px;
+    padding:9px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    width:240px;
+    max-width:100%;
+    outline:none;
+  }
+  .search-box input:focus{ border-color:var(--accent); }
+
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:22px 24px 60px;
+  }
+  .result-count{
+    font-size:13px;
+    color:var(--text-dim);
+    margin:2px 2px 14px;
+  }
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{ transform:translateY(-2px); }
+  .card-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    background:color-mix(in srgb, var(--field-color) 16%, transparent);
+    color:var(--field-color);
+  }
+  .card-date{ font-size:12px; color:var(--text-dim); white-space:nowrap; }
+  .card h2{
+    font-size:16px;
+    margin:0;
+    letter-spacing:-.01em;
+    line-height:1.4;
+  }
+  .card p.summary{
+    font-size:13.5px;
+    color:var(--text-dim);
+    margin:0;
+    flex-grow:1;
+  }
+  .card-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:4px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+  }
+  .source-link{
+    font-size:12.5px;
+    font-weight:600;
+    text-decoration:none;
+    color:var(--field-color);
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .source-link:hover{ text-decoration:underline; }
+  .share-btn{
+    font-family:inherit;
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-dim);
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:6px 10px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+  }
+  .share-btn:hover{ color:var(--text); border-color:var(--field-color); }
+
+  .empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--text-dim);
+    font-size:14px;
+  }
+
+  footer{
+    max-width:1100px;
+    margin:0 auto;
+    padding:24px 24px 48px;
+    color:var(--text-dim);
+    font-size:12px;
+    border-top:1px solid var(--border);
+    line-height:1.7;
+  }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:28px;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--text);
+    color:var(--bg);
+    font-size:13px;
+    font-weight:600;
+    padding:10px 18px;
+    border-radius:999px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+    z-index:100;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (max-width:560px){
+    .header-inner{ padding:16px; }
+    .controls{ padding:0 16px; }
+    main{ padding:18px 16px 48px; }
+    .search-box input{ width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="logo">🔬</span>
+      <div>
+        <h1>사이언스 브리프</h1>
+        <p class="tagline">최신 과학 논문·뉴스를 분야별로 모아, 짧고 쉽게 요약해드립니다</p>
+      </div>
+    </div>
+    <div class="meta-updated">최근 업데이트 · 2026년 7월 25일</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="search-box">
+    <input type="search" id="searchInput" placeholder="키워드 검색 (예: 블랙홀, 암, AI...)" />
+  </div>
+</div>
+
+<main>
+  <p class="result-count" id="resultCount"></p>
+  <div class="card-grid" id="cardGrid"></div>
+</main>
+
+<footer>
+  <p>본 페이지는 ScienceDaily, phys.org, MIT Technology Review, VentureBeat 등 신뢰할 수 있는 과학 매체의 실제 보도를 바탕으로, 누구나 쉽게 이해할 수 있도록 짧게 요약해 정리한 개인 모음집입니다. 요약은 원문의 핵심을 간추린 것이므로, 정확한 수치와 세부 내용은 각 카드의 "원문 보기" 링크에서 원본 기사를 확인해주세요.</p>
+  <p>공유 버튼을 누르면 원문 링크를 복사하거나 공유할 수 있습니다. 새 소식은 주기적으로 추가됩니다.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const FIELDS = [
+  { key:"all",     label:"전체",       emoji:"" },
+  { key:"physics", label:"물리학",     emoji:"🧲", color:"var(--physics)" },
+  { key:"space",   label:"우주·천문",   emoji:"🪐", color:"var(--space)" },
+  { key:"bio",     label:"생명·의학",   emoji:"🧬", color:"var(--bio)" },
+  { key:"ai",      label:"AI·기술",    emoji:"🤖", color:"var(--ai)" },
+  { key:"chem",    label:"화학·신소재", emoji:"⚗️", color:"var(--chem)" },
+  { key:"env",     label:"환경·지구",   emoji:"🌍", color:"var(--env)" },
+];
+
+const ARTICLES = [
+  {
+    field:"physics",
+    title:"안 돌아가는 장치로 '블랙홀에서 에너지 뽑아내기'를 실험실에서 재현하다",
+    summary:"회전하는 블랙홀에서 에너지를 뽑아낼 수 있다는 50년 전 이론을, 실제로는 전혀 돌지 않는 전자 장치로 재현했어요. 전기 신호의 패턴만 빠르게 바꿔서 마치 물체가 초고속으로 회전하는 것처럼 파동을 속인 거예요.",
+    date:"2026-07-11",
+    source:"ScienceDaily",
+    url:"https://www.sciencedaily.com/releases/2026/07/260711010120.htm"
+  },
+  {
+    field:"physics",
+    title:"양자 시스템의 시간을 '거꾸로' 흐르게 만드는 제어법 등장",
+    summary:"연구팀이 정밀한 측정과 되먹임(피드백)을 이용해 양자 시스템이 마치 시간을 거슬러 움직이는 것처럼 보이게 만들었어요. 이 기술로 측정 과정에서 에너지를 뽑아내는 장치도 시연했는데, 미래에 더 강력한 양자컴퓨터나 양자배터리에 쓰일 수 있어요.",
+    date:"2026-06-25",
+    source:"ScienceDaily",
+    url:"https://www.sciencedaily.com/releases/2026/06/260625014802.htm"
+  },
+  {
+    field:"space",
+    title:"태양계 밖 암석 행성에서 사상 처음 '대기'를 확인하다",
+    summary:"48광년 떨어진 암석 행성 LHS 1140 b에서 헬륨 기체가 우주로 조금씩 새어 나가는 것을 포착해, 생명이 살 수 있는 영역(habitable zone)의 암석 행성에서 대기가 확인된 것은 이번이 처음이에요. 생명체 존재 가능성을 연구하는 데 중요한 단서가 될 것으로 보여요.",
+    date:"2026-07-21",
+    source:"ScienceDaily / 하버드-스미소니언 천체물리센터",
+    url:"https://www.sciencedaily.com/releases/2026/07/260721000825.htm"
+  },
+  {
+    field:"space",
+    title:"우주 탄생 6억7천만 년 후, 가장 오래된 퀘이사 31개를 발견하다",
+    summary:"유클리드 우주망원경이 우주 나이가 지금의 5%밖에 안 됐을 때 빛나던 초고대 퀘이사 31개를 찾아냈어요. 그렇게 어린 우주에서 태양 수십억 배 질량의 초거대 블랙홀이 어떻게 그렇게 빨리 만들어졌는지, 기존 이론으로 설명하기 어려운 수수께끼를 던지고 있어요.",
+    date:"2026-07-07",
+    source:"ScienceDaily / ESA Euclid",
+    url:"https://www.sciencedaily.com/releases/2026/07/260707025049.htm"
+  },
+  {
+    field:"bio",
+    title:"부작용 적은 '천연 오젬픽' 분자, AI로 찾아내다",
+    summary:"스탠퍼드 연구진이 AI를 이용해 몸속에서 자연적으로 만들어지는 BRP라는 분자를 찾아냈어요. 오젬픽처럼 식욕을 줄이고 체중을 줄이지만, 메스꺼움이나 근육 손실 같은 흔한 부작용 없이 뇌의 특정 부위만 정밀하게 조절한다는 점이 특징이에요.",
+    date:"2026-07-19",
+    source:"ScienceDaily / 스탠퍼드 의대",
+    url:"https://www.sciencedaily.com/releases/2026/07/260719230608.htm"
+  },
+  {
+    field:"bio",
+    title:"전이성 전립선암을 억제하는 '완전 인간' 항체 개발",
+    summary:"스웨덴 우메오대 연구팀이 사람 단백질만으로 만든 항체를 개발해, 치료가 어려운 거세저항성 전립선암의 성장과 전이를 동물실험에서 억제하는 데 성공했어요. 사람 몸의 성분으로만 만들어져 부작용 위험도 낮을 것으로 기대되지만, 아직 초기 연구 단계예요.",
+    date:"2026-07-18",
+    source:"ScienceDaily / 우메오대학교",
+    url:"https://www.sciencedaily.com/releases/2026/07/260718010151.htm"
+  },
+  {
+    field:"ai",
+    title:"앤스로픽, Claude 안에서 숨겨진 '생각 공간(J-Space)' 발견",
+    summary:"앤스로픽 연구진이 AI 모델 Claude 내부에서, 겉으로 드러나는 답변과 별도로 개념을 조용히 붙잡고 있는 작은 내부 공간을 찾아냈어요. 이 공간은 버그를 찾거나 전략을 세우는 등 눈에 보이지 않는 추론에 관여하는데, 회사는 이것이 '의식'이라는 뜻은 아니라고 선을 그었어요.",
+    date:"2026-07-09",
+    source:"MIT Technology Review",
+    url:"https://www.technologyreview.com/2026/07/09/1140293/anthropic-found-a-hidden-space-where-claude-puzzles-over-concepts/"
+  },
+  {
+    field:"ai",
+    title:"중국 문샷AI, 2.8조 파라미터 오픈소스 모델 'Kimi K3' 공개",
+    summary:"중국 스타트업 문샷AI가 가중치를 모두 공개하는 초대형 AI 모델 Kimi K3를 선보였어요. 코딩 능력을 겨루는 한 벤치마크에서는 세계 최상위권 모델들을 제치고 1위를 차지해, 미중 AI 경쟁 구도에 다시 한번 관심이 쏠리고 있어요.",
+    date:"2026-07-16",
+    source:"VentureBeat",
+    url:"https://venturebeat.com/technology/chinas-moonshot-ai-releases-kimi-k3-the-largest-open-source-model-ever-rivaling-top-u-s-systems"
+  },
+  {
+    field:"chem",
+    title:"평범한 햇빛을 고에너지 자외선으로 바꾸는 고체 소재 개발",
+    summary:"규슈대 연구진이 야외의 평범한 햇빛을 흡수해 더 강한 에너지를 가진 자외선으로 바꿔주는 고체 소재를 만들었어요. 두 개의 들뜬 에너지가 부딪혀 하나의 강한 빛으로 합쳐지는 원리를 이용했는데, 공기 정화나 태양광 화학 반응에 활용될 수 있어요.",
+    date:"2026-06-23",
+    source:"ScienceDaily / 규슈대학교",
+    url:"https://www.sciencedaily.com/releases/2026/06/260623083058.htm"
+  },
+  {
+    field:"chem",
+    title:"물속에 쌓이는 '영원한 화학물질' PFAS, 분해하는 두 방법 찾다",
+    summary:"독일 연구진이 잘 분해되지 않기로 악명 높은 PFAS(과불화화합물)를 없애는 두 가지 방법을 시험했어요. 물속에 미세한 공기 방울을 만들었다 터뜨리는 방식과, 저온 플라스마를 쓰는 방식인데, 두 방법을 합치면 더 효율적인 정화 기술로 이어질 수 있어요.",
+    date:"2026-07-18",
+    source:"ScienceDaily / HZDR",
+    url:"https://www.sciencedaily.com/releases/2026/07/260718010147.htm"
+  },
+  {
+    field:"env",
+    title:"바다·강·호수에서 산소가 빠르게 사라지고 있다",
+    summary:"전 세계 강 2만여 곳을 분석한 결과, 대부분의 물에서 산소 농도가 꾸준히 줄어들고 있는 것으로 나타났어요. 산소 감소는 수중 생물뿐 아니라 지구 기후를 조절하는 자연적인 과정까지 약화시켜, 되돌리기 어려운 변화로 이어질 수 있다고 과학자들은 경고해요.",
+    date:"2026-07-19",
+    source:"ScienceDaily / 스크립스 해양연구소",
+    url:"https://www.sciencedaily.com/releases/2026/07/260719035939.htm"
+  },
+  {
+    field:"env",
+    title:"명령 한 번에 6일 만에 스스로 분해되는 '살아있는 플라스틱'",
+    summary:"중국 연구진이 플라스틱 필름 속에 서로 협력하는 두 종류의 박테리아를 넣어, 영양액에 넣고 온도를 올리면 6일 만에 완전히 분해되는 소재를 만들었어요. 기존 방식과 달리 미세플라스틱을 남기지 않고 원래 성분으로 되돌아간다는 점이 눈에 띄어요.",
+    date:"2026-07-15",
+    source:"ScienceDaily / 선전 합성생물학연구소",
+    url:"https://www.sciencedaily.com/releases/2026/07/260715083552.htm"
+  }
+];
+
+const fieldMap = Object.fromEntries(FIELDS.filter(f=>f.key!=="all").map(f=>[f.key,f]));
+
+const tabsEl = document.getElementById("tabs");
+const gridEl = document.getElementById("cardGrid");
+const countEl = document.getElementById("resultCount");
+const searchEl = document.getElementById("searchInput");
+const toastEl = document.getElementById("toast");
+
+let activeField = "all";
+let query = "";
+
+function renderTabs(){
+  tabsEl.innerHTML = FIELDS.map(f => `
+    <button class="tab ${f.key===activeField?"active":""}" data-field="${f.key}">
+      ${f.emoji ? f.emoji+" " : ""}${f.label}
+    </button>
+  `).join("");
+  tabsEl.querySelectorAll(".tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      activeField = btn.dataset.field;
+      renderTabs();
+      renderCards();
+    });
+  });
+}
+
+function matches(article){
+  const inField = activeField === "all" || article.field === activeField;
+  if(!inField) return false;
+  if(!query) return true;
+  const q = query.toLowerCase();
+  return (article.title + article.summary + article.source).toLowerCase().includes(q);
+}
+
+function renderCards(){
+  const items = ARTICLES.filter(matches);
+  countEl.textContent = `${items.length}건의 소식`;
+
+  if(items.length === 0){
+    gridEl.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">조건에 맞는 소식이 없어요. 다른 키워드나 분야를 선택해보세요.</div>`;
+    return;
+  }
+
+  gridEl.innerHTML = items.map((a, i) => {
+    const f = fieldMap[a.field];
+    return `
+    <article class="card" style="--field-color:${f.color}">
+      <div class="card-top">
+        <span class="badge">${f.emoji} ${f.label}</span>
+        <span class="card-date">${a.date}</span>
+      </div>
+      <h2>${a.title}</h2>
+      <p class="summary">${a.summary}</p>
+      <div class="card-bottom">
+        <a class="source-link" href="${a.url}" target="_blank" rel="noopener noreferrer">${a.source} 원문 보기 ↗</a>
+        <button class="share-btn" data-idx="${i}" data-url="${a.url}" data-title="${a.title.replace(/"/g,'&quot;')}">공유 ⤴</button>
+      </div>
+    </article>
+    `;
+  }).join("");
+
+  gridEl.querySelectorAll(".share-btn").forEach(btn=>{
+    btn.addEventListener("click", async ()=>{
+      const url = btn.dataset.url;
+      const title = btn.dataset.title;
+      if(navigator.share){
+        try{ await navigator.share({ title, url }); } catch(e){ /* 사용자가 취소함 */ }
+      } else {
+        try{
+          await navigator.clipboard.writeText(url);
+          showToast("링크가 복사되었습니다");
+        }catch(e){
+          showToast("복사에 실패했어요");
+        }
+      }
+    });
+  });
+}
+
+let toastTimer;
+function showToast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> toastEl.classList.remove("show"), 1800);
+}
+
+searchEl.addEventListener("input", (e)=>{
+  query = e.target.value.trim();
+  renderCards();
+});
+
+renderTabs();
+renderCards();
+</script>
+
+</body>
 </html>
