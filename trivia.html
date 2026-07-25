@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학 한 스푼 — 심심할 때 보는 과학 상식</title>
+<meta name="description" content="일상 속에서 궁금했던 것들을 과학적 근거로 짧고 쉽게 설명한 상식 모음. 심심할 때 가볍게 읽거나, 영상으로도 더 찾아볼 수 있어요.">
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --surface:#ffffff;
+    --surface-2:#eef0f6;
+    --text:#1a1d29;
+    --text-dim:#5a5f72;
+    --border:#e2e4ec;
+    --accent:#c47a3d;
+    --shadow: 0 1px 2px rgba(20,22,40,.04), 0 8px 24px rgba(20,22,40,.06);
+    --body:#c47a3d;
+    --mind:#7b4dce;
+    --food:#1f9d6b;
+    --space:#4d5bce;
+    --animal:#c2408a;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14151c;
+      --surface:#1c1e29;
+      --surface-2:#242634;
+      --text:#eceef5;
+      --text-dim:#a2a6bd;
+      --border:#2e3142;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --accent:#e6a366;
+      --body:#e6a366;
+      --mind:#b191ea;
+      --food:#4fce9d;
+      --space:#8892e8;
+      --animal:#e881bb;
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family: "Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  .site-header{
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter: blur(8px);
+  }
+  .header-inner{
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand .logo{
+    font-size:28px;
+    width:48px;height:48px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface-2);
+    border-radius:14px;
+    flex-shrink:0;
+  }
+  .brand h1{font-size:20px;margin:0 0 2px;letter-spacing:-.02em;}
+  .brand .tagline{font-size:13px;color:var(--text-dim);margin:0;}
+  .nav-link{
+    font-size:13px;
+    font-weight:600;
+    color:var(--text-dim);
+    text-decoration:none;
+    background:var(--surface-2);
+    padding:8px 14px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:color .15s ease;
+  }
+  .nav-link:hover{ color:var(--accent); }
+
+  .controls{
+    max-width:1100px;
+    margin:22px auto 0;
+    padding:0 24px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .tabs{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .tab{
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .tab:hover{ color:var(--text); border-color:var(--accent); }
+  .tab.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .search-box{ flex-shrink:0; }
+  .search-box input{
+    font-family:inherit;
+    font-size:13px;
+    padding:9px 14px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    width:240px;
+    max-width:100%;
+    outline:none;
+  }
+  .search-box input:focus{ border-color:var(--accent); }
+
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:22px 24px 60px;
+  }
+  .result-count{
+    font-size:13px;
+    color:var(--text-dim);
+    margin:2px 2px 14px;
+  }
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{ transform:translateY(-2px); }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 10px;
+    border-radius:999px;
+    background:color-mix(in srgb, var(--field-color) 16%, transparent);
+    color:var(--field-color);
+    align-self:flex-start;
+  }
+  .card h2{
+    font-size:16px;
+    margin:0;
+    letter-spacing:-.01em;
+    line-height:1.4;
+  }
+  .card p.explain{
+    font-size:13.5px;
+    color:var(--text-dim);
+    margin:0;
+    flex-grow:1;
+  }
+  .card-bottom{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:4px;
+    padding-top:12px;
+    border-top:1px solid var(--border);
+  }
+  .link-btn{
+    font-size:12.5px;
+    font-weight:600;
+    text-decoration:none;
+    border-radius:8px;
+    padding:6px 10px;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    border:1px solid var(--border);
+    background:var(--surface-2);
+    color:var(--text-dim);
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .link-btn:hover{ color:var(--field-color); border-color:var(--field-color); }
+
+  .empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--text-dim);
+    font-size:14px;
+  }
+
+  footer{
+    max-width:1100px;
+    margin:0 auto;
+    padding:24px 24px 48px;
+    color:var(--text-dim);
+    font-size:12px;
+    border-top:1px solid var(--border);
+    line-height:1.7;
+  }
+
+  @media (max-width:560px){
+    .header-inner{ padding:16px; }
+    .controls{ padding:0 16px; }
+    main{ padding:18px 16px 48px; }
+    .search-box input{ width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="logo">🍿</span>
+      <div>
+        <h1>과학 한 스푼</h1>
+        <p class="tagline">심심할 때 가볍게 읽는, 과학적 근거가 있는 생활 상식</p>
+      </div>
+    </div>
+    <a class="nav-link" href="index.html">🔬 과학 뉴스 브리프 보기 →</a>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="tabs" id="tabs" role="tablist"></div>
+  <div class="search-box">
+    <input type="search" id="searchInput" placeholder="키워드 검색 (예: 잠, 무지개, 고양이...)" />
+  </div>
+</div>
+
+<main>
+  <p class="result-count" id="resultCount"></p>
+  <div class="card-grid" id="cardGrid"></div>
+</main>
+
+<footer>
+  <p>이 페이지는 이미 잘 알려진 과학적 설명을 바탕으로, 누구나 가볍게 읽을 수 있도록 정리한 개인 상식 모음집입니다. 더 깊이 알고 싶다면 각 카드의 "더 읽어보기(위키백과)" 링크에서 확인하거나, "영상 찾아보기" 링크로 관련 유튜브 영상을 검색해보세요.</p>
+  <p>내용은 과학적 정설이 아니라 가장 널리 받아들여지는 가설인 경우도 있습니다. 학술적 인용이 필요하다면 원문·논문을 별도로 확인해주세요.</p>
+</footer>
+
+<script>
+const CATEGORIES = [
+  { key:"all",    label:"전체",      emoji:"" },
+  { key:"body",   label:"몸",        emoji:"🫀", color:"var(--body)" },
+  { key:"mind",   label:"마음·심리",  emoji:"🧠", color:"var(--mind)" },
+  { key:"food",   label:"음식·냄새",  emoji:"🧅", color:"var(--food)" },
+  { key:"space",  label:"우주·자연",  emoji:"🌌", color:"var(--space)" },
+  { key:"animal", label:"동물",      emoji:"🐙", color:"var(--animal)" },
+];
+
+const ITEMS = [
+  {
+    cat:"body",
+    title:"손가락 관절을 꺾으면 왜 '뚝' 소리가 날까?",
+    explain:"관절 사이를 채운 활액(관절액)에는 기체가 녹아 있는데, 관절을 당기면 압력이 갑자기 낮아지면서 기체 방울이 생겼다가 터져요. 이 방울이 터지는 순간의 압력 변화가 '뚝' 소리를 만든다는 것이 가장 널리 알려진 설명이에요.",
+    wiki:"https://en.wikipedia.org/wiki/Joint_cracking",
+    query:"손가락 관절 소리 나는 이유 과학"
+  },
+  {
+    cat:"body",
+    title:"커피만 마시면 왜 화장실이 급해질까?",
+    explain:"카페인은 대장 근육의 움직임을 자극하고, 음식이나 음료가 위에 들어오면 대장이 반사적으로 움직이는 '위·대장 반사'도 함께 작동해요. 두 효과가 겹치면서 커피를 마신 지 얼마 안 돼 신호가 오는 경우가 많아요.",
+    wiki:"https://en.wikipedia.org/wiki/Gastrocolic_reflex",
+    query:"커피 마시면 화장실 가고싶은 이유"
+  },
+  {
+    cat:"body",
+    title:"사랑에 빠지면 왜 심장이 두근거릴까?",
+    explain:"누군가에게 강하게 끌릴 때 뇌는 도파민과 아드레날린 같은 신경전달물질을 왈칵 분비해요. 이 물질들이 심박수를 높이고 손에 땀이 나게 만드는데, 긴장하거나 위험을 느낄 때 몸이 보이는 반응과 매우 비슷해요.",
+    wiki:"https://ko.wikipedia.org/wiki/도파민",
+    query:"사랑에 빠지면 심장이 두근거리는 이유 과학"
+  },
+  {
+    cat:"body",
+    title:"꾸준히 운동하면 왜 기분이 좋아질까? ('러너스 하이')",
+    explain:"격렬한 운동을 일정 시간 이상 지속하면 뇌에서 엔도르핀과 엔도카나비노이드가 분비돼, 통증은 줄고 행복감은 커지는 상태가 나타나요. 이를 '러너스 하이'라 부르는데, 꼭 달리기가 아니어도 비슷한 효과가 보고돼요.",
+    wiki:"https://en.wikipedia.org/wiki/Runner%27s_high",
+    query:"러너스 하이 운동 후 기분 좋아지는 이유"
+  },
+  {
+    cat:"body",
+    title:"잠들기 직전 몸이 갑자기 '움찔'하는 이유는?",
+    explain:"잠에 빠져드는 순간 뇌는 근육을 이완시키는데, 이 과정에서 뇌가 몸이 '떨어지고 있다'고 착각해 순간적으로 근육을 수축시키는 반사가 일어나요. 이를 '입면기 경련'이라 부르며, 대부분 정상적인 현상이에요.",
+    wiki:"https://en.wikipedia.org/wiki/Hypnic_jerk",
+    query:"잠들기 직전 몸 움찔 하는 이유 과학"
+  },
+  {
+    cat:"mind",
+    title:"하품은 왜 옆사람에게 옮을까?",
+    explain:"다른 사람의 행동을 보기만 해도 마치 내가 하는 것처럼 반응하는 '거울 뉴런'이 관여한다는 가설이 유력해요. 공감 능력이 높을수록 하품이 잘 전염된다는 연구 결과도 있어, 사회적 유대와 관련 있다는 해석이 많아요.",
+    wiki:"https://ko.wikipedia.org/wiki/거울_뉴런",
+    query:"하품 전염되는 이유 과학"
+  },
+  {
+    cat:"mind",
+    title:"가짜 약인데도 효과가 있는 '위약 효과'",
+    explain:"진짜 약효 성분이 없는데도 '효과가 있을 것'이라는 기대감만으로 실제 통증이 줄거나 증상이 나아지는 현상이에요. 뇌가 기대에 따라 스스로 엔도르핀 같은 물질을 분비하기 때문으로 설명되며, 신약 임상시험에서 반드시 비교 대상으로 쓰여요.",
+    wiki:"https://ko.wikipedia.org/wiki/위약_효과",
+    query:"위약효과 플라시보 효과 원리"
+  },
+  {
+    cat:"mind",
+    title:"시계를 보는 순간, 초침이 멈춘 것처럼 느껴지는 이유",
+    explain:"눈동자가 빠르게 움직인 뒤에는 뇌가 그 짧은 순간을 건너뛰고, 눈이 멈춘 지점의 장면을 실제보다 길게 이어붙여 인식해요. 그래서 시계를 보자마자 첫 1초가 유독 길게 느껴지는데, 이를 '시간 정지 착시(chronostasis)'라고 해요.",
+    wiki:"https://en.wikipedia.org/wiki/Chronostasis",
+    query:"시계 초침 멈춘 것처럼 보이는 착시 이유"
+  },
+  {
+    cat:"mind",
+    title:"나이가 들수록 시간이 빨리 간다고 느끼는 이유",
+    explain:"유력한 설명 중 하나는 '비례 이론'이에요. 10살 아이에게 1년은 인생의 10분의 1이지만, 50살 어른에게 1년은 50분의 1에 불과해 상대적으로 짧게 느껴진다는 거예요. 나이가 들수록 새로운 경험이 줄어 기억에 남는 '전환점'이 적어지는 것도 원인으로 꼽혀요.",
+    wiki:"https://en.wikipedia.org/wiki/Time_perception",
+    query:"나이 들수록 시간 빨리 가는 이유 심리학"
+  },
+  {
+    cat:"food",
+    title:"양파를 썰면 왜 눈물이 날까?",
+    explain:"양파를 자르면 세포가 파괴되며 효소와 화합물이 섞여 눈을 자극하는 기체가 만들어져요. 이 기체가 공기 중으로 퍼져 눈에 닿으면, 눈은 이를 씻어내려고 반사적으로 눈물을 만들어내요.",
+    wiki:"https://en.wikipedia.org/wiki/Syn-Propanethial-S-oxide",
+    query:"양파 썰면 눈물 나는 이유 과학"
+  },
+  {
+    cat:"food",
+    title:"비가 온 뒤 나는 특유의 흙냄새, 정체는?",
+    explain:"흙 속 미생물(방선균)이 만들어내는 '지오스민'이라는 물질과, 마른 땅에 스며 있던 유기물이 빗방울에 튕겨 나가 공기 중으로 퍼지는 것이 원인이에요. 이 냄새를 통틀어 '페트리코'라 부르며, 사람 코는 지오스민을 극히 적은 양으로도 알아챌 만큼 민감해요.",
+    wiki:"https://en.wikipedia.org/wiki/Petrichor",
+    query:"비 온 뒤 흙냄새 페트리코 이유"
+  },
+  {
+    cat:"food",
+    title:"매운맛은 왜 '맛'이 아니라 '통증'일까?",
+    explain:"고추의 캡사이신 성분은 원래 뜨거운 것을 감지하는 통각 수용체(TRPV1)를 자극해요. 그래서 뇌는 실제 온도가 오르지 않아도 '뜨겁고 아프다'는 신호를 받아들이는데, 이 자극이 반복되면 엔도르핀이 분비돼 짜릿한 쾌감으로 느껴지기도 해요.",
+    wiki:"https://ko.wikipedia.org/wiki/캡사이신",
+    query:"매운맛 통증인 이유 캡사이신"
+  },
+  {
+    cat:"space",
+    title:"우주에서는 왜 소리가 안 들릴까?",
+    explain:"소리는 공기 같은 매질의 분자가 진동을 전달해야 만들어지는데, 우주 공간은 물질이 거의 없는 진공이라 진동을 전달할 것이 없어요. 그래서 영화와 달리 실제 우주에서는 폭발이 일어나도 소리가 전달되지 않아요.",
+    wiki:"https://ko.wikipedia.org/wiki/진공",
+    query:"우주에서 소리 안들리는 이유 진공"
+  },
+  {
+    cat:"space",
+    title:"밤하늘의 별은 왜 반짝반짝 보일까?",
+    explain:"별빛 자체는 일정하지만, 지구 대기를 통과하는 동안 온도와 밀도가 다른 공기층을 여러 번 지나면서 빛의 경로가 미세하게 흔들려요. 그래서 지상에서 보면 별빛이 순간순간 떨리는 것처럼 보이지만, 대기가 거의 없는 우주에서 보면 별은 흔들림 없이 고정된 점으로 보여요.",
+    wiki:"https://en.wikipedia.org/wiki/Twinkling",
+    query:"별이 반짝이는 이유 대기 굴절"
+  },
+  {
+    cat:"space",
+    title:"무지개는 왜 항상 둥근 모양일까?",
+    explain:"무지개는 공중에 떠 있는 물방울이 햇빛을 굴절·반사시켜 만드는데, 이때 빛이 꺾여 나오는 각도가 물방울 종류와 상관없이 항상 대략 42도로 일정해요. 그 결과 태양을 등지고 볼 때 42도 각도를 이루는 지점들을 모두 이으면 항상 둥근 원(호)이 그려지는 거예요.",
+    wiki:"https://ko.wikipedia.org/wiki/무지개",
+    query:"무지개 항상 둥근 모양인 이유"
+  },
+  {
+    cat:"animal",
+    title:"고양이는 왜 그르렁거릴까?",
+    explain:"편안할 때뿐 아니라 아프거나 스트레스를 받을 때도 그르렁거리는 경우가 있어, 단순한 '기쁨의 표현'만은 아니에요. 그르렁거림의 진동수가 뼈와 조직 재생을 돕는 주파수 대역과 겹친다는 연구가 있어, 스스로를 치유하려는 행동이라는 가설도 있어요.",
+    wiki:"https://en.wikipedia.org/wiki/Purring",
+    query:"고양이 그르렁거리는 이유 과학"
+  },
+  {
+    cat:"animal",
+    title:"개미는 길을 잃지 않고 어떻게 집을 찾아갈까?",
+    explain:"개미는 먹이를 찾아가며 페로몬이라는 화학 물질을 땅에 남기고, 돌아오는 길에는 그 냄새 흔적을 따라가요. 더 짧고 좋은 길일수록 페로몬 냄새가 더 진하게 쌓여서, 시간이 지나면 무리 전체가 자연스럽게 가장 효율적인 길로 다니게 돼요.",
+    wiki:"https://ko.wikipedia.org/wiki/페로몬",
+    query:"개미 페로몬 길찾기 원리"
+  },
+  {
+    cat:"animal",
+    title:"문어는 다리가 잘려도 왜 괜찮을까?",
+    explain:"문어의 다리에는 몸 전체 신경세포의 상당수가 분산되어 있어서, 잘린 다리는 뇌와 분리된 채로도 한동안 스스로 움직일 수 있어요. 게다가 문어는 놀라운 재생 능력을 갖고 있어, 잘려나간 다리를 몇 주에서 몇 달에 걸쳐 다시 자라나게 할 수 있어요.",
+    wiki:"https://en.wikipedia.org/wiki/Octopus",
+    query:"문어 다리 잘려도 움직이는 이유 재생"
+  },
+];
+
+const catMap = Object.fromEntries(CATEGORIES.filter(c=>c.key!=="all").map(c=>[c.key,c]));
+
+const tabsEl = document.getElementById("tabs");
+const gridEl = document.getElementById("cardGrid");
+const countEl = document.getElementById("resultCount");
+const searchEl = document.getElementById("searchInput");
+
+let activeCat = "all";
+let query = "";
+
+function renderTabs(){
+  tabsEl.innerHTML = CATEGORIES.map(c => `
+    <button class="tab ${c.key===activeCat?"active":""}" data-cat="${c.key}">
+      ${c.emoji ? c.emoji+" " : ""}${c.label}
+    </button>
+  `).join("");
+  tabsEl.querySelectorAll(".tab").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      activeCat = btn.dataset.cat;
+      renderTabs();
+      renderCards();
+    });
+  });
+}
+
+function matches(item){
+  const inCat = activeCat === "all" || item.cat === activeCat;
+  if(!inCat) return false;
+  if(!query) return true;
+  const q = query.toLowerCase();
+  return (item.title + item.explain).toLowerCase().includes(q);
+}
+
+function renderCards(){
+  const items = ITEMS.filter(matches);
+  countEl.textContent = `${items.length}개의 상식`;
+
+  if(items.length === 0){
+    gridEl.innerHTML = `<div class="empty-state" style="grid-column:1/-1;">조건에 맞는 상식이 없어요. 다른 키워드나 분야를 선택해보세요.</div>`;
+    return;
+  }
+
+  gridEl.innerHTML = items.map(item => {
+    const c = catMap[item.cat];
+    const videoUrl = "https://www.youtube.com/results?search_query=" + encodeURIComponent(item.query);
+    return `
+    <article class="card" style="--field-color:${c.color}">
+      <span class="badge">${c.emoji} ${c.label}</span>
+      <h2>${item.title}</h2>
+      <p class="explain">${item.explain}</p>
+      <div class="card-bottom">
+        <a class="link-btn" href="${item.wiki}" target="_blank" rel="noopener noreferrer">📖 더 읽어보기</a>
+        <a class="link-btn" href="${videoUrl}" target="_blank" rel="noopener noreferrer">▶ 영상 찾아보기</a>
+      </div>
+    </article>
+    `;
+  }).join("");
+}
+
+searchEl.addEventListener("input", (e)=>{
+  query = e.target.value.trim();
+  renderCards();
+});
+
+renderTabs();
+renderCards();
+</script>
+
+</body>
+</html>
