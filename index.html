@@ -182,6 +182,19 @@
     color:var(--field-color);
   }
   .card-date{ font-size:12px; color:var(--text-dim); white-space:nowrap; }
+  .subject-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--text-dim);
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:3px 8px;
+    width:fit-content;
+  }
   .card h2{
     font-size:16px;
     margin:0;
@@ -303,7 +316,7 @@
 </main>
 
 <footer>
-  <p>본 페이지는 ScienceDaily, phys.org, MIT Technology Review, VentureBeat 등 신뢰할 수 있는 과학 매체의 실제 보도를 바탕으로, 누구나 쉽게 이해할 수 있도록 짧게 요약해 정리한 개인 모음집입니다. 요약은 원문의 핵심을 간추린 것이므로, 정확한 수치와 세부 내용은 각 카드의 "원문 보기" 링크에서 원본 기사를 확인해주세요.</p>
+  <p>본 페이지는 ScienceDaily, phys.org, MIT Technology Review, VentureBeat 등 신뢰할 수 있는 과학 매체의 실제 보도를 바탕으로, 고등학생도 쉽게 이해할 수 있도록 짧게 요약해 정리한 개인 모음집입니다. 각 카드의 "📘" 태그는 관련된 고등학교 교과 단원을 참고용으로 표시한 것으로, 공식 교육과정 자료는 아니에요. 요약은 원문의 핵심을 간추린 것이므로, 정확한 수치와 세부 내용은 각 카드의 "원문 보기" 링크에서 원본 기사를 확인해주세요.</p>
   <p>공유 버튼을 누르면 원문 링크를 복사하거나 공유할 수 있습니다. 새 소식은 주기적으로 추가됩니다.</p>
 </footer>
 
@@ -323,6 +336,7 @@ const FIELDS = [
 const ARTICLES = [
   {
     field:"physics",
+    subject:"물리학Ⅱ · 파동과 에너지",
     title:"안 돌아가는 장치로 '블랙홀에서 에너지 뽑아내기'를 실험실에서 재현하다",
     summary:"회전하는 블랙홀에서 에너지를 뽑아낼 수 있다는 50년 전 이론을, 실제로는 전혀 돌지 않는 전자 장치로 재현했어요. 전기 신호의 패턴만 빠르게 바꿔서 마치 물체가 초고속으로 회전하는 것처럼 파동을 속인 거예요.",
     date:"2026-07-11",
@@ -331,6 +345,7 @@ const ARTICLES = [
   },
   {
     field:"physics",
+    subject:"물리학Ⅱ · 양자역학",
     title:"양자 시스템의 시간을 '거꾸로' 흐르게 만드는 제어법 등장",
     summary:"연구팀이 정밀한 측정과 되먹임(피드백)을 이용해 양자 시스템이 마치 시간을 거슬러 움직이는 것처럼 보이게 만들었어요. 이 기술로 측정 과정에서 에너지를 뽑아내는 장치도 시연했는데, 미래에 더 강력한 양자컴퓨터나 양자배터리에 쓰일 수 있어요.",
     date:"2026-06-25",
@@ -338,7 +353,35 @@ const ARTICLES = [
     url:"https://www.sciencedaily.com/releases/2026/06/260625014802.htm"
   },
   {
+    field:"physics",
+    subject:"물리학Ⅰ · 뉴턴 운동 법칙",
+    title:"뉴턴의 제3법칙을 깬 것처럼 보이는 '떠 있는 타임 크리스탈'",
+    summary:"물체에 힘을 주면 크기가 같고 방향이 반대인 반작용력이 함께 생긴다는 뉴턴 제3법칙은 물리학Ⅰ의 기본 개념이에요. 연구팀은 에너지를 계속 공급받는 특수한 '시간 결정' 시스템에서 이 법칙이 겉보기에 깨진 것처럼 보이는 현상을 발견했는데, 계를 드나드는 에너지까지 함께 따져보면 법칙 자체는 여전히 성립한다는 것을 보여준 사례예요.",
+    date:"2026-03-22",
+    source:"ScienceDaily",
+    url:"https://www.sciencedaily.com/releases/2026/03/260322020258.htm"
+  },
+  {
+    field:"physics",
+    subject:"물리학Ⅱ · 전기 저항과 초전도",
+    title:"AI가 앞당기는 '상온 초전도체' 찾기 경쟁",
+    summary:"전기 저항이 0이 되는 초전도 현상은 물리학Ⅱ의 핵심 개념이지만, 지금까지는 아주 낮은 온도에서만 나타나 실생활에 쓰기 어려웠어요. 연구팀은 AI로 수많은 물질 조합 중 상온에서도 초전도성을 가질 가능성이 높은 후보 물질을 빠르게 추려내는 방법을 제시했어요.",
+    date:"2026-07-01",
+    source:"ScienceDaily",
+    url:"https://www.sciencedaily.com/releases/2026/07/260701205006.htm"
+  },
+  {
+    field:"physics",
+    subject:"물리학Ⅰ · 물질의 상태",
+    title:"고체이면서 동시에 흐르는 '초고체', 상온에서 처음 구현하다",
+    summary:"교과서에서는 물질의 상태를 보통 고체·액체·기체 세 가지로 배우지만, 특수한 조건에서는 그 경계가 흐려지기도 해요. 연구팀은 빛과 나노 구조를 이용해, 규칙적인 결정 구조를 유지하면서도 저항 없이 흐르는 '초고체' 상태를 상온에서 처음으로 만들어냈어요.",
+    date:"2026-03",
+    source:"phys.org",
+    url:"https://phys.org/news/2026-03-scientists-state-room-temperature-nanostructures.html"
+  },
+  {
     field:"space",
+    subject:"지구과학Ⅰ · 외계 행성과 대기",
     title:"태양계 밖 암석 행성에서 사상 처음 '대기'를 확인하다",
     summary:"48광년 떨어진 암석 행성 LHS 1140 b에서 헬륨 기체가 우주로 조금씩 새어 나가는 것을 포착해, 생명이 살 수 있는 영역(habitable zone)의 암석 행성에서 대기가 확인된 것은 이번이 처음이에요. 생명체 존재 가능성을 연구하는 데 중요한 단서가 될 것으로 보여요.",
     date:"2026-07-21",
@@ -347,6 +390,7 @@ const ARTICLES = [
   },
   {
     field:"space",
+    subject:"지구과학Ⅰ · 우주의 진화",
     title:"우주 탄생 6억7천만 년 후, 가장 오래된 퀘이사 31개를 발견하다",
     summary:"유클리드 우주망원경이 우주 나이가 지금의 5%밖에 안 됐을 때 빛나던 초고대 퀘이사 31개를 찾아냈어요. 그렇게 어린 우주에서 태양 수십억 배 질량의 초거대 블랙홀이 어떻게 그렇게 빨리 만들어졌는지, 기존 이론으로 설명하기 어려운 수수께끼를 던지고 있어요.",
     date:"2026-07-07",
@@ -354,7 +398,35 @@ const ARTICLES = [
     url:"https://www.sciencedaily.com/releases/2026/07/260707025049.htm"
   },
   {
+    field:"space",
+    subject:"지구과학Ⅰ · 판구조론",
+    title:"35억 년 전, 지구는 이미 움직이고 있었다",
+    summary:"대륙이 실린 판이 서서히 움직인다는 판구조론은 지구과학Ⅰ의 핵심 단원이에요. 연구팀은 아주 오래된 암석 속 광물을 분석해, 지구의 판이 35억 년 전부터 이미 움직이고 있었다는 가장 오래된 직접적인 증거를 찾아냈어요.",
+    date:"2026-03-21",
+    source:"ScienceDaily",
+    url:"https://www.sciencedaily.com/releases/2026/03/260321012636.htm"
+  },
+  {
+    field:"space",
+    subject:"지구과학Ⅰ · 섭입대와 지진",
+    title:"태평양 밑에서 지각판이 쪼개지고 있는 모습이 처음 포착되다",
+    summary:"한 판이 다른 판 아래로 파고드는 '섭입대'는 지진과 화산 활동을 이해하는 데 중요한 지구과학 개념이에요. 연구팀은 미국 태평양 북서부 아래에서 후안데푸카판이 여러 조각으로 쪼개지고 있는 모습을 사상 처음으로 관측해, 판이 갈라지는 과정을 실시간에 가깝게 확인했어요.",
+    date:"2026-04-29",
+    source:"ScienceDaily",
+    url:"https://www.sciencedaily.com/releases/2026/04/260429232851.htm"
+  },
+  {
+    field:"space",
+    subject:"물리학Ⅰ · 운동량 보존과 작용·반작용",
+    title:"로켓 엔진 33개 중 4개가 안 켜져, 발사가 자동으로 중단되다",
+    summary:"로켓이 뜨려면 가스를 아래로 세게 뿜는 힘(작용)만큼 로켓을 밀어 올리는 반대 방향의 힘(반작용)이 필요한데, 이는 물리학Ⅰ 운동량 보존 법칙과 그대로 연결돼요. 스페이스X의 대형 로켓 '스타십'은 엔진 33개 중 일부가 점화되지 않자, 이상을 감지한 자동 안전장치가 발사 직전 시퀀스를 스스로 멈춰 세웠어요.",
+    date:"2026-07-16",
+    source:"Spaceflight Now",
+    url:"https://spaceflightnow.com/2026/07/16/live-coverage-spacex-to-deploy-first-starlink-v3-satellites-on-suborbital-starship-super-heavy-flight/"
+  },
+  {
     field:"bio",
+    subject:"생명과학Ⅰ · 항상성과 호르몬",
     title:"부작용 적은 '천연 오젬픽' 분자, AI로 찾아내다",
     summary:"스탠퍼드 연구진이 AI를 이용해 몸속에서 자연적으로 만들어지는 BRP라는 분자를 찾아냈어요. 오젬픽처럼 식욕을 줄이고 체중을 줄이지만, 메스꺼움이나 근육 손실 같은 흔한 부작용 없이 뇌의 특정 부위만 정밀하게 조절한다는 점이 특징이에요.",
     date:"2026-07-19",
@@ -363,6 +435,7 @@ const ARTICLES = [
   },
   {
     field:"bio",
+    subject:"생명과학Ⅰ · 방어 작용과 항체",
     title:"전이성 전립선암을 억제하는 '완전 인간' 항체 개발",
     summary:"스웨덴 우메오대 연구팀이 사람 단백질만으로 만든 항체를 개발해, 치료가 어려운 거세저항성 전립선암의 성장과 전이를 동물실험에서 억제하는 데 성공했어요. 사람 몸의 성분으로만 만들어져 부작용 위험도 낮을 것으로 기대되지만, 아직 초기 연구 단계예요.",
     date:"2026-07-18",
@@ -370,7 +443,35 @@ const ARTICLES = [
     url:"https://www.sciencedaily.com/releases/2026/07/260718010151.htm"
   },
   {
+    field:"bio",
+    subject:"생명과학Ⅰ · 유전자와 유전자가위",
+    title:"RNA 대신 DNA로 표적을 찾는 새로운 크리스퍼 유전자가위 등장",
+    summary:"크리스퍼 유전자가위는 원래 RNA 안내자를 이용해 자르고 싶은 DNA 부위를 찾아가는 기술로, 생명과학Ⅰ 유전자 발현 단원에서 다뤄요. 연구팀은 RNA 대신 더 안정적인 DNA를 안내자로 쓰는 방식을 세계 최초로 개발해, 냉동 보관 없이도 오래 쓸 수 있는 진단·치료 기술의 가능성을 열었어요.",
+    date:"2026-05",
+    source:"University of Florida",
+    url:"https://news.ufl.edu/2026/05/dna-guided-crispr/"
+  },
+  {
+    field:"bio",
+    subject:"생명과학Ⅰ · 신경계와 호르몬",
+    title:"깊은 잠을 잘 때 성장호르몬이 나오는 뇌 회로가 밝혀지다",
+    summary:"성장호르몬 분비와 항상성 조절은 생명과학Ⅰ 신경계·호르몬 단원의 단골 주제예요. 연구팀은 시상하부에서 나오는 두 호르몬이 '가속 페달'과 '브레이크'처럼 짝을 이뤄, 깊은 잠을 자는 동안 근육 회복과 지방 연소를 조절하는 뇌 회로를 밝혀냈어요.",
+    date:"2026-06-26",
+    source:"ScienceDaily / UC버클리",
+    url:"https://www.sciencedaily.com/releases/2026/06/260626030433.htm"
+  },
+  {
+    field:"bio",
+    subject:"생명과학Ⅰ · 진화와 유전적 다양성",
+    title:"코알라, 인간이 오기 전 이미 한 번 멸종 위기를 겪었다",
+    summary:"생명과학Ⅰ에서 배우는 '진화와 유전적 다양성'을 잘 보여주는 사례예요. 유전체를 분석한 결과 코알라는 인간이 호주에 도착하기 훨씬 전인 약 10만 년 전 빙하기 기후 변화로 개체수가 크게 줄었다가, 살아남은 소수 개체로부터 지금의 모든 코알라가 이어져 내려온 것으로 밝혀졌어요.",
+    date:"2026-07-15",
+    source:"ScienceDaily / 시드니대학교",
+    url:"https://www.sciencedaily.com/releases/2026/07/260715083551.htm"
+  },
+  {
     field:"ai",
+    subject:"정보 · 인공지능과 데이터",
     title:"앤스로픽, Claude 안에서 숨겨진 '생각 공간(J-Space)' 발견",
     summary:"앤스로픽 연구진이 AI 모델 Claude 내부에서, 겉으로 드러나는 답변과 별도로 개념을 조용히 붙잡고 있는 작은 내부 공간을 찾아냈어요. 이 공간은 버그를 찾거나 전략을 세우는 등 눈에 보이지 않는 추론에 관여하는데, 회사는 이것이 '의식'이라는 뜻은 아니라고 선을 그었어요.",
     date:"2026-07-09",
@@ -379,6 +480,7 @@ const ARTICLES = [
   },
   {
     field:"ai",
+    subject:"정보 · 인공지능과 소프트웨어",
     title:"중국 문샷AI, 2.8조 파라미터 오픈소스 모델 'Kimi K3' 공개",
     summary:"중국 스타트업 문샷AI가 가중치를 모두 공개하는 초대형 AI 모델 Kimi K3를 선보였어요. 코딩 능력을 겨루는 한 벤치마크에서는 세계 최상위권 모델들을 제치고 1위를 차지해, 미중 AI 경쟁 구도에 다시 한번 관심이 쏠리고 있어요.",
     date:"2026-07-16",
@@ -386,7 +488,26 @@ const ARTICLES = [
     url:"https://venturebeat.com/technology/chinas-moonshot-ai-releases-kimi-k3-the-largest-open-source-model-ever-rivaling-top-u-s-systems"
   },
   {
+    field:"ai",
+    subject:"정보·기술가정 · 로봇공학과 자동제어",
+    title:"56개 관절로 움직이는 인간형 로봇, 자동차 공장에 투입되다",
+    summary:"로봇공학과 자동제어는 정보·기술가정 교과에서 다루는 주제예요. 보스턴 다이내믹스의 인간형 로봇 '아틀라스'는 56개의 관절(자유도)을 가져 사람처럼 유연하게 움직이는데, 현대자동차 미국 공장에 투입돼 부품을 옮기고 조립을 돕는 자율 작업을 수행하고 있어요.",
+    date:"2026-01",
+    source:"Hyundai Motor Group",
+    url:"https://www.financialcontent.com/article/tokenring-2026-1-21-industrial-evolution-boston-dynamics-electric-atlas-reports-for-duty-at-hyundais-georgia-metaplant"
+  },
+  {
+    field:"ai",
+    subject:"정보 · 인공지능과 화학의 융합",
+    title:"AI 실험실이 스스로 촉매를 설계하는 프로젝트, 독일에서 출범",
+    summary:"화학 반응을 빠르게 하는 촉매를 찾는 일은 화학Ⅰ 반응 속도 단원과도 맞닿아 있어요. 독일 연구진은 AI가 실험 결과를 스스로 분석해 다음 실험을 설계하는 '자율 실험실'을 이용해, 친환경 화학 공정에 쓸 새로운 촉매를 더 빠르게 찾아내는 프로젝트를 시작했어요.",
+    date:"2026-06-12",
+    source:"Fritz Haber Institute (Max Planck)",
+    url:"https://www.fhi.mpg.de/2252864/2026-06-12_ASCEND_Official_Launch"
+  },
+  {
     field:"chem",
+    subject:"화학Ⅰ · 광화학 반응",
     title:"평범한 햇빛을 고에너지 자외선으로 바꾸는 고체 소재 개발",
     summary:"규슈대 연구진이 야외의 평범한 햇빛을 흡수해 더 강한 에너지를 가진 자외선으로 바꿔주는 고체 소재를 만들었어요. 두 개의 들뜬 에너지가 부딪혀 하나의 강한 빛으로 합쳐지는 원리를 이용했는데, 공기 정화나 태양광 화학 반응에 활용될 수 있어요.",
     date:"2026-06-23",
@@ -395,6 +516,7 @@ const ARTICLES = [
   },
   {
     field:"chem",
+    subject:"화학Ⅱ · 화학 결합과 분해",
     title:"물속에 쌓이는 '영원한 화학물질' PFAS, 분해하는 두 방법 찾다",
     summary:"독일 연구진이 잘 분해되지 않기로 악명 높은 PFAS(과불화화합물)를 없애는 두 가지 방법을 시험했어요. 물속에 미세한 공기 방울을 만들었다 터뜨리는 방식과, 저온 플라스마를 쓰는 방식인데, 두 방법을 합치면 더 효율적인 정화 기술로 이어질 수 있어요.",
     date:"2026-07-18",
@@ -402,7 +524,35 @@ const ARTICLES = [
     url:"https://www.sciencedaily.com/releases/2026/07/260718010147.htm"
   },
   {
+    field:"chem",
+    subject:"화학Ⅰ · 반응 속도와 촉매",
+    title:"촉매 200종을 한 번에 시험해 새로운 반응 경로를 찾다",
+    summary:"반응 속도를 조절하는 촉매는 화학Ⅰ의 핵심 개념 중 하나예요. 일본 연구진은 고속 실험 장비와 머신러닝을 결합해 촉매 200여 종을 한꺼번에 시험하는 방법을 개발했고, 메탄을 다른 유용한 물질로 바꾸는 숨은 반응 경로를 새롭게 찾아냈어요.",
+    date:"2026-07-08",
+    source:"phys.org / JAIST",
+    url:"https://phys.org/news/2026-07-high-throughput-catalysts-revealing-hidden.html"
+  },
+  {
+    field:"chem",
+    subject:"화학Ⅱ · 전기화학과 전지",
+    title:"일정한 압력만 가해도 배터리 수명이 2배로 늘어난다",
+    summary:"리튬이온 전지의 충전·방전 원리는 화학Ⅱ 전기화학 단원에서 배워요. 케임브리지대 연구진은 전지를 적당한 압력으로 계속 눌러주면 양극이 갈라지거나 리튬이 엉뚱한 곳에 쌓이는 문제가 줄어, 전지 수명이 두 배로 늘어난다는 사실을 실험으로 확인했어요.",
+    date:"2026-07-06",
+    source:"electrive.com / 케임브리지대학교",
+    url:"https://www.electrive.com/2026/07/06/constant-physical-pressure-could-double-battery-lifespan-new-study-finds/"
+  },
+  {
+    field:"chem",
+    subject:"화학Ⅱ · 고체 전해질과 신소재",
+    title:"차세대 '전고체 배터리'가 갑자기 고장 나는 원인을 밝혀내다",
+    summary:"액체 대신 고체 전해질을 쓰는 전고체 배터리는 더 안전하고 오래가는 차세대 전지로 꼽혀요. 연구팀은 배터리 안에서 자라나는 부드러운 리튬 결정이 어떻게 단단한 세라믹 전해질에 균열을 내는지, 극저온 현미경으로 그 원리를 10년 만에 처음 밝혀냈어요.",
+    date:"2026-04-27",
+    source:"ScienceDaily / 막스플랑크연구소",
+    url:"https://www.sciencedaily.com/releases/2026/07/260710003533.htm"
+  },
+  {
     field:"env",
+    subject:"지구과학Ⅰ · 해양과 생태계",
     title:"바다·강·호수에서 산소가 빠르게 사라지고 있다",
     summary:"전 세계 강 2만여 곳을 분석한 결과, 대부분의 물에서 산소 농도가 꾸준히 줄어들고 있는 것으로 나타났어요. 산소 감소는 수중 생물뿐 아니라 지구 기후를 조절하는 자연적인 과정까지 약화시켜, 되돌리기 어려운 변화로 이어질 수 있다고 과학자들은 경고해요.",
     date:"2026-07-19",
@@ -411,11 +561,39 @@ const ARTICLES = [
   },
   {
     field:"env",
+    subject:"생명과학Ⅱ · 미생물과 생명공학",
     title:"명령 한 번에 6일 만에 스스로 분해되는 '살아있는 플라스틱'",
     summary:"중국 연구진이 플라스틱 필름 속에 서로 협력하는 두 종류의 박테리아를 넣어, 영양액에 넣고 온도를 올리면 6일 만에 완전히 분해되는 소재를 만들었어요. 기존 방식과 달리 미세플라스틱을 남기지 않고 원래 성분으로 되돌아간다는 점이 눈에 띄어요.",
     date:"2026-07-15",
     source:"ScienceDaily / 선전 합성생물학연구소",
     url:"https://www.sciencedaily.com/releases/2026/07/260715083552.htm"
+  },
+  {
+    field:"env",
+    subject:"화학Ⅱ · 태양전지와 에너지 전환",
+    title:"100%가 한계라던 태양전지 효율, 130%까지 끌어올리다",
+    summary:"태양전지가 빛 에너지를 전기로 바꾸는 효율에는 이론적인 한계가 있다고 알려져 있었어요. 연구진은 광자 하나가 들뜬 상태 두 개로 쪼개지는 '일중항 분열' 현상을 정교하게 제어해, 광자 하나로 1.3개 분량의 에너지를 뽑아내는 데 성공했어요.",
+    date:"2026-03-25",
+    source:"ScienceDaily / 규슈대학교",
+    url:"https://www.sciencedaily.com/releases/2026/03/260328024517.htm"
+  },
+  {
+    field:"env",
+    subject:"지구과학Ⅰ · 신재생에너지",
+    title:"캘리포니아, 태양광 발전으로 하루 전력 수요 72%를 채우다",
+    summary:"태양광·풍력 같은 신재생에너지로의 전환은 지구과학Ⅰ 에너지 단원에서도 다루는 주제예요. 미국 캘리포니아는 2026년 7월, 태양광 발전량이 23기가와트를 넘어서며 한낮 전력 수요의 72%를 태양광만으로 충당하는 새 기록을 세웠어요.",
+    date:"2026-07-10",
+    source:"Renewable Energy Magazine",
+    url:"https://www.renewableenergymagazine.com/panorama/six-records-solar-and-storage-have-crushed-20260720"
+  },
+  {
+    field:"env",
+    subject:"생명과학Ⅰ · 생물 다양성과 분류",
+    title:"수십 년간 흔한 뱀으로 오해받던 신종 초록 살모사를 발견하다",
+    summary:"생물을 정확히 분류하려면 겉모습뿐 아니라 DNA까지 비교해야 한다는 것을 보여주는 사례예요. 중국 쓰촨성 자이언트판다 국립공원에서 흔한 대나무살모사로 여겨지던 뱀이, DNA 분석 결과 지금까지 알려지지 않았던 완전히 새로운 종이라는 사실이 밝혀졌어요.",
+    date:"2026-04-22",
+    source:"ScienceDaily / 청두생물연구소",
+    url:"https://www.sciencedaily.com/releases/2026/04/260422044617.htm"
   }
 ];
 
@@ -450,7 +628,7 @@ function matches(article){
   if(!inField) return false;
   if(!query) return true;
   const q = query.toLowerCase();
-  return (article.title + article.summary + article.source).toLowerCase().includes(q);
+  return (article.title + article.summary + article.source + (article.subject||"")).toLowerCase().includes(q);
 }
 
 function renderCards(){
@@ -471,6 +649,7 @@ function renderCards(){
         <span class="card-date">${a.date}</span>
       </div>
       <h2>${a.title}</h2>
+      ${a.subject ? `<span class="subject-tag">📘 ${a.subject}</span>` : ""}
       <p class="summary">${a.summary}</p>
       <div class="card-bottom">
         <a class="source-link" href="${a.url}" target="_blank" rel="noopener noreferrer">${a.source} 원문 보기 ↗</a>
